@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The World Cup — Installer Competition</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="field-glow"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">🏆</div>
+      <div class="hero-text">
+        <p class="hero-eyebrow">Solve Energy</p>
+        <p class="hero-tagline">Installer Competition</p>
+        <h1>The World Cup</h1>
+      </div>
+      <div class="hero-prize">
+        <div class="prize-icons"><span>🏠</span><span>🎣</span></div>
+        <div class="prize-text">
+          <span class="prize-label">Champion's Prize</span>
+          <span class="prize-name">Port Renfrew Cabin Trip</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-status" id="status-bar">
+      <span id="phase-label" class="phase-pill">Loading…</span>
+      <span id="demo-pill" class="demo-pill hidden">DEMO DATA</span>
+      <span id="synced-label" class="synced-label"></span>
+      <button id="sync-btn" class="sync-btn">Sync now</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="standings">League Standings</button>
+    <button class="tab-btn" data-tab="final">The Finale</button>
+    <button class="tab-btn" data-tab="rules">Rules</button>
+  </nav>
+
+  <main>
+    <section id="tab-standings" class="tab-panel active">
+      <div id="standings-card" class="standings-card"></div>
+    </section>
+
+    <section id="tab-final" class="tab-panel">
+      <div id="final" class="final-wrap"></div>
+    </section>
+
+    <section id="tab-rules" class="tab-panel">
+      <div class="rules-card">
+        <h2>How the Installer World Cup works</h2>
+        <h3>Weeks 1-4 — League Play (Aug 4 – Aug 31)</h3>
+        <p>Every week runs Monday to Sunday and stands alone — revenue resets each week. Top revenue team of the week earns 3 points, second highest earns 1 point, everyone else earns 0. Points add up across all 4 weeks. Tied on total points at the end? Highest combined revenue across the 4 weeks wins the tiebreaker.</p>
+        <h3>Week 5 — The Knockout Finale (Sep 1 – Sep 7)</h3>
+        <p>The two teams with the most league points go head to head. Week 5 is scored fresh — whoever installs the most revenue that week alone wins the trip. League points don't carry into the Finale result, they only decided who's in it.</p>
+        <h3>Who's competing</h3>
+        <p><strong>Electrician, Solo</strong> — full contract value counts to you, for the electrical work you touched.<br />
+        <strong>Install Crew Only</strong> — full contract value counts to your crew, on the jobs you installed.<br />
+        <strong>Combined Team (Electrician + Install)</strong> — one team, full job value counts once, includes full 3-man electrical plus install crews.<br />
+        If a solo electrician and a separately-registered crew both work the same job, each is credited the full value on their own board. Rosters locked Aug 4 — no swaps once the season started.</p>
+        <h3>What counts as revenue</h3>
+        <p>Full contract value, only when the job is actually done — meaning it's cleared all four gates: <strong>Ops Checklist</strong> submitted fully and completely, <strong>POWRA</strong> completed before work starts on site, <strong>Method Statement</strong> followed, and <strong>System Commissioned</strong> — live and reporting correctly in the monitoring app. Miss one and the job doesn't count yet, not partially. It counts in whichever week it actually clears all four.</p>
+        <h3>The prize</h3>
+        <p>Port Renfrew. Cabin. Boat on the water. The winning team goes together, three of you — whether that's one combined crew, or an electrician and a two-man install crew who topped the board side by side, however you get there, it's a three-man trip. Spouses welcome where applicable. Exact dates get locked in with the winning team after Week 5.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Live from the Installer World Cup Notion database. Standings refresh automatically each morning.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
