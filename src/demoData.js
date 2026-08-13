@@ -13,7 +13,7 @@ const DEMO_TEAMS = [
   { name: 'Reece Thomas', type: 'Solo Electrician', members: 'Reece Thomas' },
   { name: 'Dusan Podsednik', type: 'Solo Electrician', members: 'Dusan Podsednik' },
   { name: 'Adonis, Aleks & Tristan', type: 'Install Crew', members: 'Adonis Liu, Aleks, Tristan' },
-  { name: '5head & Wyatt', type: 'Install Crew', members: '5head, Wyatt Richards' },
+  { name: 'Andrew & Wyatt', type: 'Install Crew', members: 'Andrew Robertson, Wyatt Richards' },
 ];
 
 function seedFromString(str) {

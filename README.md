@@ -89,11 +89,6 @@ This repo is set up for Railway's GitHub auto-deploy:
 
 ## Things to double check with the boss
 
-- **Roster gaps**: "Jacob & Akira" and "5head & Wyatt" were originally flagged
-  as not matching real Company Directory records - now that team composition
-  comes from actual `Electrician`/`Install Crew` relations, those two teams
-  need real Company Directory entries linked before their revenue formulas
-  can resolve correctly.
 - **Combined Teams**: team type is now derived automatically - a team becomes
   a Combined Team the moment both an `Electrician` and at least one
   `Install Crew` member are linked on its row. No separate flag to set.
