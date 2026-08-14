@@ -40,6 +40,17 @@ function demoRevenue(seed, min, max) {
   return Math.round((min + rnd() * (max - min)) / 100) * 100;
 }
 
+// A couple of sample exclusions so the "excluded jobs" UI is visible in demo
+// mode too, not just once real Notion data is connected.
+const DEMO_EXCLUDED_JOBS = {
+  'Bailey & Carter': [
+    { week: 2, jobId: 'SE-874', reasons: ['POWRA'] },
+  ],
+  'Andrew & Wyatt': [
+    { week: 1, jobId: 'SE-901', reasons: ['Ops Checklist', 'System Commissioned'] },
+  ],
+};
+
 function buildDemoRows() {
   return DEMO_TEAMS.map((team) => {
     const seed = seedFromString(team.name);
@@ -50,7 +61,7 @@ function buildDemoRows() {
       members: team.members,
       weeklyRevenue,
       finalRevenue: demoRevenue(seed + 5, 6000, 32000),
-      notes: '',
+      excludedJobs: DEMO_EXCLUDED_JOBS[team.name] || [],
       pageUrl: null,
     };
   });

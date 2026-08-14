@@ -80,6 +80,34 @@ function extractNumber(prop) {
   return 0;
 }
 
+// "Errors" is a single string-formula field covering all 5 weeks in one go
+// (Notion formulas can't call a reusable function per week, so the formula
+// itself unrolls the same check 5 times internally). Each line is
+// "Wk <n>: <job id> — missing: <reason>; <reason>; ".
+function extractFormulaString(prop) {
+  if (!prop || prop.type !== 'formula' || !prop.formula) return '';
+  return prop.formula.type === 'string' ? prop.formula.string || '' : '';
+}
+
+function parseErrors(text) {
+  if (!text) return [];
+  return text
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const weekMatch = line.match(/^Wk (\d+):\s*/);
+      const week = weekMatch ? parseInt(weekMatch[1], 10) : null;
+      const rest = weekMatch ? line.slice(weekMatch[0].length) : line;
+      const [jobId, reasonsPart] = rest.split(' — missing: ');
+      const reasons = (reasonsPart || '')
+        .split(';')
+        .map((r) => r.trim())
+        .filter(Boolean);
+      return { week, jobId: (jobId || '').trim(), reasons };
+    });
+}
+
 async function notionFetch(path, body) {
   const { token } = getConfig();
   const res = await fetch(`${API_BASE}${path}`, {
@@ -100,7 +128,8 @@ async function notionFetch(path, body) {
 
 // Fetches every row of the Installer World Cup database. Returns an array
 // of: { name, type, members, weeklyRevenue: [wk1, wk2, wk3, wk4],
-//        finalRevenue, pageUrl }
+//        finalRevenue, excludedJobs: [{week, jobId, reasons: [...]}, ...],
+//        pageUrl }
 async function fetchInstallerCupRows() {
   const { databaseId } = getConfig();
   const rows = [];
@@ -121,6 +150,8 @@ async function fetchInstallerCupRows() {
         .filter(Boolean)
         .join(', ');
 
+      const excludedJobs = parseErrors(extractFormulaString(props['Errors']));
+
       rows.push({
         name,
         type: deriveTeamType(hasElectrician, hasInstallCrew),
@@ -132,6 +163,7 @@ async function fetchInstallerCupRows() {
           extractNumber(props['Week 4 Revenue']),
         ],
         finalRevenue: extractNumber(props['Week 5 Final Revenue']),
+        excludedJobs,
         pageUrl: result.url,
       });
     }

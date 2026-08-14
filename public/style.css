@@ -302,6 +302,18 @@ table.team-table {
 .week-badge-win.week-badge-pending { border-color: var(--gold); color: var(--gold); }
 .week-badge-ru.week-badge-pending { border-color: #c8d4bd; color: #c8d4bd; }
 
+.excluded-jobs {
+  margin-top: 6px;
+  padding-left: 8px;
+  border-left: 2px solid var(--red);
+}
+.excluded-job-row {
+  color: #ff9a9d;
+  font-size: 11px;
+  line-height: 1.5;
+  white-space: normal;
+}
+
 table.team-table th, table.team-table td {
   padding: 10px 12px;
   text-align: right;

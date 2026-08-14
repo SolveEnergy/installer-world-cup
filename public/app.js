@@ -32,6 +32,23 @@ function typeBadge(type) {
   });
 }
 
+// Jobs that cleared the date window for a week but got left out for
+// missing one of the completion gates, per the "Week N Errors" Notion
+// formulas. Only rendered when a team actually has any.
+function excludedJobsBlock(excludedJobs) {
+  if (!excludedJobs || !excludedJobs.length) return null;
+  const list = el('div', { class: 'excluded-jobs' });
+  for (const { week, jobId, reasons } of excludedJobs) {
+    list.appendChild(
+      el('div', {
+        class: 'excluded-job-row',
+        text: `Wk ${week}: ${jobId} — missing ${reasons.join(', ')}`,
+      })
+    );
+  }
+  return list;
+}
+
 function renderStandings(state) {
   const card = document.getElementById('standings-card');
   card.innerHTML = '';
@@ -79,6 +96,8 @@ function renderStandings(state) {
         el('span', { class: `week-badge ${kind} ${concluded ? '' : 'week-badge-pending'}`, text: badge })
       );
     }
+    const excludedBlock = excludedJobsBlock(team ? team.excludedJobs : null);
+    if (excludedBlock) nameTd.appendChild(excludedBlock);
     tr.appendChild(nameTd);
 
     const weekly = team ? team.weeklyRevenue : [0, 0, 0, 0];
