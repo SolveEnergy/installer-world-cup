@@ -98,7 +98,7 @@ This repo is set up for Railway's GitHub auto-deploy:
 ```
 server.js          Express app + routes
 src/notion.js      Notion REST API client (no SDK dependency)
-src/phase.js       Fixed weekly schedule (Aug 4 - Sep 7) + phase gating
+src/phase.js       Fixed weekly schedule (Aug 10 - Sep 13) + phase gating
 src/tournament.js  Scoring engine: weekly points, standings, the Finale
 src/demoData.js    Deterministic sample data for demo mode
 public/            Frontend (static HTML/CSS/JS)

@@ -1,14 +1,16 @@
-// Fixed tournament schedule, per the "World Cup Kickoff Deck" (Aug 4 - Sep 7).
-// All weeks run Monday -> Sunday. Dates are inclusive. Solve Energy is a BC
+// Fixed tournament schedule, per the actual season start used in the Notion
+// "Start Date" formula field (Aug 10 - Sep 13, 2026 - moved back from the
+// deck's original Aug 4 kickoff). All weeks run Sunday -> Saturday, matching
+// that Start Date being a Sunday. Dates are inclusive. Solve Energy is a BC
 // company, so times are anchored to Pacific, not the Eastern zone the
 // original KW World Cup (Apex Cup) app used.
 
 const SCHEDULE = [
-  { key: 'week1', phase: 'league', label: 'Week 1 - League Play', start: '2026-08-04', end: '2026-08-10' },
-  { key: 'week2', phase: 'league', label: 'Week 2 - League Play', start: '2026-08-11', end: '2026-08-17' },
-  { key: 'week3', phase: 'league', label: 'Week 3 - League Play', start: '2026-08-18', end: '2026-08-24' },
-  { key: 'week4', phase: 'league', label: 'Week 4 - League Play', start: '2026-08-25', end: '2026-08-31' },
-  { key: 'week5', phase: 'final', label: 'Week 5 - The Knockout Finale', start: '2026-09-01', end: '2026-09-07' },
+  { key: 'week1', phase: 'league', label: 'Week 1 - League Play', start: '2026-08-10', end: '2026-08-16' },
+  { key: 'week2', phase: 'league', label: 'Week 2 - League Play', start: '2026-08-17', end: '2026-08-23' },
+  { key: 'week3', phase: 'league', label: 'Week 3 - League Play', start: '2026-08-24', end: '2026-08-30' },
+  { key: 'week4', phase: 'league', label: 'Week 4 - League Play', start: '2026-08-31', end: '2026-09-06' },
+  { key: 'week5', phase: 'final', label: 'Week 5 - The Knockout Finale', start: '2026-09-07', end: '2026-09-13' },
 ];
 
 // Ordering used to gate the UI: the Finale should only ever be revealed once
