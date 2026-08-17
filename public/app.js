@@ -49,9 +49,12 @@ function excludedJobsBlock(excludedJobs) {
   return list;
 }
 
-function renderStandings(state) {
-  const card = document.getElementById('standings-card');
-  card.innerHTML = '';
+// Teams are ranked within their own category now (Electrician vs Crew),
+// not against each other - see src/tournament.js. Builds one category's
+// table; renderStandings calls this once per category.
+function buildCategoryTable(state, categoryStandings, title) {
+  const card = el('div', { class: 'category-card' });
+  card.appendChild(el('h3', { class: 'category-title', text: title }));
 
   const table = el('table', { class: 'team-table' });
   const thead = el('thead', {}, [
@@ -69,7 +72,7 @@ function renderStandings(state) {
   table.appendChild(thead);
 
   const tbody = el('tbody');
-  for (const s of state.tournament.standings) {
+  for (const s of categoryStandings.standings) {
     const team = state.teams.find((t) => t.name === s.name);
     const tr = el('tr', { class: s.finalist ? 'finalist' : '' });
 
@@ -111,8 +114,15 @@ function renderStandings(state) {
   }
   table.appendChild(tbody);
 
-  const scrollWrap = el('div', { class: 'table-scroll' }, [table]);
-  card.appendChild(scrollWrap);
+  card.appendChild(el('div', { class: 'table-scroll' }, [table]));
+  return card;
+}
+
+function renderStandings(state) {
+  const container = document.getElementById('standings-card');
+  container.innerHTML = '';
+  container.appendChild(buildCategoryTable(state, state.tournament.electrician, 'Electrician'));
+  container.appendChild(buildCategoryTable(state, state.tournament.crew, 'Crew'));
 }
 
 function matchRow(label, name, revenue, isWinner) {
@@ -132,15 +142,17 @@ function renderFinal(state) {
   const finalReached = phaseReached(currentWeek.phase, 'final');
 
   if (!finalReached || !tournament.final) {
-    const finalists = tournament.standings.filter((s) => s.finalist);
-    const note = finalists.length
-      ? `Locked in so far: ${finalists.map((f) => f.name).join(' vs. ')}. Scored fresh once Week 5 opens.`
-      : 'League play in progress — the top 2 teams by points after Week 4 meet here.';
+    const topElectrician = tournament.electrician.standings.find((s) => s.finalist);
+    const topCrew = tournament.crew.standings.find((s) => s.finalist);
+    const note =
+      topElectrician || topCrew
+        ? 'Locked in so far - scored fresh once Week 5 opens.'
+        : 'League play in progress — the top Electrician and top Crew by points after Week 4 meet here.';
     root.appendChild(
       el('div', { class: 'match-card tbd-card' }, [
-        matchRow('', finalists[0] ? finalists[0].name : 'TBD', null, false),
+        matchRow('Top Electrician', topElectrician ? topElectrician.name : 'TBD', null, false),
         el('div', { class: 'match-vs', text: 'VS' }),
-        matchRow('', finalists[1] ? finalists[1].name : 'TBD', null, false),
+        matchRow('Top Crew', topCrew ? topCrew.name : 'TBD', null, false),
       ])
     );
     root.appendChild(el('div', { class: 'empty-note', text: note }));
@@ -149,9 +161,9 @@ function renderFinal(state) {
 
   const f = tournament.final;
   const card = el('div', { class: 'match-card' });
-  card.appendChild(matchRow(`#${f.seedA}`, f.teamA, f.revenueA, f.champion === f.teamA));
+  card.appendChild(matchRow(f.labelA, f.teamA, f.revenueA, f.champion === f.teamA));
   card.appendChild(el('div', { class: 'match-vs', text: 'VS' }));
-  card.appendChild(matchRow(`#${f.seedB}`, f.teamB, f.revenueB, f.champion === f.teamB));
+  card.appendChild(matchRow(f.labelB, f.teamB, f.revenueB, f.champion === f.teamB));
   root.appendChild(card);
   root.appendChild(
     el('div', { class: 'champion-card' }, [

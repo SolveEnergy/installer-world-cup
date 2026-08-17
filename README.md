@@ -5,11 +5,16 @@ straight from the **Installer World Cup** Notion database.
 
 ## What it does
 
-- One flat table of teams (Solo Electricians, Install Crews, Combined Teams) — no
-  groups, no bracket, unlike the Apex Cup / KW World Cup sales tournament.
-- Weekly league points (3 / 1 / 0 across all teams, Weeks 1-4) plus a combined
-  4-week-revenue tiebreaker, and a single Week 5 head-to-head Finale between the
-  top 2 teams by points, decided by that week's revenue alone.
+- Two separate standings tables — Electrician and Crew — no groups, no bracket,
+  unlike the Apex Cup / KW World Cup sales tournament. Teams are only ranked
+  within their own category, never against the other one.
+- Weekly league points (3 / 1 / 0 within each category, Weeks 1-4) plus a
+  combined 4-week-revenue tiebreaker, and a single Week 5 head-to-head Finale
+  between the #1 Electrician and #1 Crew - always one of each, by
+  construction - decided by that week's revenue alone.
+- "Combined Team" (electrician + crew combined) isn't scored under either
+  category right now - none are currently registered. See `CATEGORIES` in
+  `src/tournament.js` if one ever needs adding.
 - Reads each team's weekly revenue straight from Notion's own `Week 1-4 Revenue`
   and `Week 5 Final Revenue` fields.
 - Falls back to clearly-labeled **demo data** if no Notion credentials are set, so

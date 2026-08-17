@@ -236,11 +236,26 @@ main {
 .tab-panel.active { display: block; }
 
 .standings-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.category-card {
   background: var(--panel);
   border: 2px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.25) inset;
+}
+
+.category-title {
+  margin: 0;
+  padding: 14px 16px 0;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold);
 }
 
 .table-scroll {
